@@ -1,9 +1,12 @@
 package ted1e2;
 
+import ted1e2.utils.Alfabeto;
+
+import static ted1e2.utils.Alfabeto.tamAlfabeto;
+
 public class Vigenere {
 
     // VALORES CONSTANTES
-    static final int tamAlfabeto = 26;
     static final int tamLinha = tamAlfabeto;
     static final int tamColuna = tamAlfabeto;
 
@@ -32,34 +35,6 @@ public class Vigenere {
     }
 
     /**
-     * @return retorna um vetor com as letras do alfabeto de A-Z minúsculas
-     */
-    public static char[] inicializaVetorAlfabeto() {
-        char letra = 'a';
-        char[] vetAlfabeto = new char[tamAlfabeto];
-        for (int i = 0; i < tamAlfabeto; i++) {
-            vetAlfabeto[i] = letra;
-            letra++;
-        }
-        return vetAlfabeto;
-    }
-
-    /**
-     * Retorna se um carácter está contido no vetor de letras do alfabeto
-     * @param letra letra a ser procurada no vetor de letras do alfabeto
-     * @return True se contem, False se não contem
-     */
-    public static boolean alfabetoContemLetra(char letra) {
-        char[] vetorAlfabeto = inicializaVetorAlfabeto();
-        for (char l : vetorAlfabeto) {
-            if (l == letra) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Encontra as posições da letra do texto e da chave
      *
      * @param letraTexto letra do texto para pesquisar no alfabeto
@@ -67,7 +42,7 @@ public class Vigenere {
      * @return Retorna um vetor de duas posições onde 0 = posição da letra do texto e 1 = posição da letra da chave
      */
     public static int[] retornaCoordenadasCifra(char letraTexto, char letraChave) {
-        char[] alfabeto = inicializaVetorAlfabeto();
+        char[] alfabeto = Alfabeto.inicializaVetorAlfabeto();
         int[] vetCoordenadas = new int[2];
         // Encontra a posição da letra do texto que vai ser cifrado
         for (int i = 0; i < tamAlfabeto; i++) {
@@ -105,7 +80,6 @@ public class Vigenere {
         }
         return posLetraOriginal;
     }
-
 
     /**
      * Ajusta a chave da cifra quando ela for menor que o texto
@@ -150,7 +124,7 @@ public class Vigenere {
      * @return Retorna a letra localizada na posição passada como parâmetro ou um espaço se a letra não for encontrada
      */
     public static char retornaLetraAlfabeto(int posLetra) {
-        char[] alfabeto = inicializaVetorAlfabeto();
+        char[] alfabeto = Alfabeto.inicializaVetorAlfabeto();
         for (int i = 0; i < tamAlfabeto; i++) {
             if (posLetra == i) {
                 return alfabeto[i];
@@ -183,7 +157,7 @@ public class Vigenere {
             // Letra atual percorrida no vetor de texto
             char letraAtual = vetTexto[i];
             // Busca as respetivas posições das letras atuais do texto e da chave
-            if (alfabetoContemLetra(letraAtual)) {
+            if (Alfabeto.alfabetoContemLetra(letraAtual)) {
                 vetCoordenadas = retornaCoordenadasCifra(vetTexto[i], vetChave[i]);
                 // Adiciona a letra encontrada usando as posições do "vetCoordenadas" na String de resultado
                 resultado.append(retornaLetraDaMatriz(vetCoordenadas[0], vetCoordenadas[1]));
@@ -216,7 +190,7 @@ public class Vigenere {
             // Letra atual percorrida no vetor de texto
             char letraAtual = vetTextoCifrado[i];
             // Busca as respetivas posições das letras atuais do texto e da chave
-            if (alfabetoContemLetra(letraAtual)) {
+            if (Alfabeto.alfabetoContemLetra(letraAtual)) {
                 // Armazena a posição da letra original no alfabeto
                 int posLetraOriginal = retornaPosicaoLetraOriginal(vetTextoCifrado[i], vetChave[i]);
                 // Adiciona a letra encontrada
