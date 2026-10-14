@@ -15,6 +15,7 @@ public class Hash {
         }
         return resultado.toString();
     }
+
     public static boolean validateHash(String texto, String hashRecebido) throws NoSuchAlgorithmException {
         String hashCalculado = genHash(texto);
         return hashCalculado.equals(hashRecebido);
